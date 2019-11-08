@@ -1,0 +1,95 @@
+html {
+  overflow-y: hidden !important;
+}
+
+#app {
+  .layout {
+    background-color: #f0f3f4;
+    min-width: 1200px;
+  }
+
+  .el-scrollbar {
+    height: 100%;
+
+    .el-scrollbar__wrap {
+      overflow-x: hidden !important;
+    }
+  }
+
+  .el-header {
+    height: 50px !important;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-l {
+      display: flex;
+      align-items: center;
+
+      .open-icon {
+        display: flex;
+        align-items: center;
+
+        i {
+          font-size: 22px;
+          margin-right: 12px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .header-r{
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .sidebar {
+    width: 200px;
+    transition: width 0.3s;
+
+    .menu-title {
+      text-align: center;
+      i {
+        font-size: 26px;
+        color: #fff;
+        margin-right: 10px;
+      }
+
+      span {
+        font-weight: bold;
+        color: #fff;
+      }
+    }
+  }
+
+  .sidebarClose {
+    width: 64px !important;
+  }
+
+  .el-aside {
+    width: auto !important;
+    height: 100vh;
+    color: rgb(181, 182, 189);
+    background-color: rgb(58, 63, 81);
+    box-sizing: border-box;
+
+    .el-menu {
+      border: none;
+    }
+  }
+
+  .el-container {
+    .el-main {
+      height: 90vh !important;
+    }
+  }
+}
