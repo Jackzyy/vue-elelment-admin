@@ -52,29 +52,6 @@ html {
     }
   }
 
-  .sidebar {
-    width: 200px;
-    transition: width 0.3s;
-
-    .menu-title {
-      text-align: center;
-      i {
-        font-size: 26px;
-        color: #fff;
-        margin-right: 10px;
-      }
-
-      span {
-        font-weight: bold;
-        color: #fff;
-      }
-    }
-  }
-
-  .sidebarClose {
-    width: 64px !important;
-  }
-
   .el-aside {
     width: auto !important;
     height: 100vh;
@@ -85,11 +62,38 @@ html {
     .el-menu {
       border: none;
     }
+
+    .sidebar {
+      width: 200px;
+      transition: width 0.3s;
+  
+      .menu-title {
+        text-align: center;
+        i {
+          font-size: 26px;
+          color: #fff;
+          margin-right: 10px;
+        }
+  
+        span {
+          font-weight: bold;
+          color: #fff;
+        }
+      }
+    }
   }
 
   .el-container {
     .el-main {
       height: 90vh !important;
+      padding: 0 !important;
+      .page-main{
+        padding: 20px;
+      }
     }
+  }
+
+  .sidebarCloseWidth {
+    width: 64px !important;
   }
 }

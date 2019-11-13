@@ -22,13 +22,24 @@ const actions = {
     commit
   }) {
     return new Promise((resolve, reject) => {
-      let roles = ['Permission', 'PageAdmin']
       let name = 'admin'
       let token = 'token'
 
       commit('SET_TOKEN', token)
-      commit('SET_ROLES', roles)
       commit('SET_NAME', name)
+
+      resolve()
+    })
+  },
+
+  // 获取角色权限信息
+  getUserRoles ({
+    commit
+  }) {
+    return new Promise((resolve, reject) => {
+      let roles = ['Permission', 'PageAdmin']
+
+      commit('SET_ROLES', roles)
 
       resolve(roles)
     })
@@ -36,8 +47,7 @@ const actions = {
 
   // 登出
   loginOut ({
-    commit,
-    state
+    commit
   }) {
     return new Promise((resolve, reject) => {
       commit('SET_TOKEN', '')

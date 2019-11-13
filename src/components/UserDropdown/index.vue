@@ -13,7 +13,8 @@
           个人信息
         </el-dropdown-item>
         <el-dropdown-item divided
-                          icon="el-icon-switch-button">
+                          icon="el-icon-switch-button"
+                          @click.native="handleLoginOut">
           退出登录
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -28,7 +29,12 @@
 
 <script>
 export default {
-
+  methods: {
+    handleLoginOut () {
+      this.$store.dispatch('user/loginOut')
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
@@ -37,9 +43,11 @@ export default {
   display: flex;
   align-items: center;
   cursor: pointer;
-  .el-dropdown{
+
+  .el-dropdown {
     padding: 12px 0;
   }
+
   .el-image {
     border-radius: 50%;
     margin: 0 6px;

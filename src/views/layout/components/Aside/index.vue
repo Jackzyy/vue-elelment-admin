@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar"
-       :class="{ sidebarClose:opened }">
+       :class="{ sidebarCloseWidth:opened }">
     <el-menu :default-active="activeMenu"
              background-color="#3a3f51"
              text-color="#b5b6bd"

@@ -7,17 +7,20 @@ import createPersistedState from 'vuex-persistedstate'
 
 const appPlugins = createPersistedState({
   storage: window.localStorage,
-  reducer (val) {
+  reducer (store) {
     return {
-      app: val.app,
-      token: val.user.token
+      app: store.app,
+      user: { // 此结构必需与State结构相同，否则刷新还原数据时解构赋值错位
+        token: store.user.token,
+        userName: store.user.userName
+      }
     }
   }
 })
 
 const userPlugins = createPersistedState({
   storage: window.sessionStorage,
-  reducer (val) {
+  reducer (store) {
     return {
 
     }
