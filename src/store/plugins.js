@@ -9,7 +9,8 @@ const appPlugins = createPersistedState({
   storage: window.localStorage,
   reducer (val) {
     return {
-      app: val.app
+      app: val.app,
+      token: val.user.token
     }
   }
 })
@@ -18,8 +19,7 @@ const userPlugins = createPersistedState({
   storage: window.sessionStorage,
   reducer (val) {
     return {
-      user: val.user,
-      permission: val.permission
+
     }
   }
 })

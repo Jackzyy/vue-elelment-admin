@@ -1,11 +1,11 @@
 <template>
-  <div class="dashboard">
+  <div class="login">
     <el-button @click="handleLogin">Login</el-button>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -14,12 +14,15 @@ export default {
   },
 
   methods: {
-    ...mapActions('user', [
-      'login'
-    ]),
-
     async handleLogin () {
-      this.login()
+      try {
+        const roles = await this.$store.dispatch('user/login')
+        const addRoutes = await this.$store.dispatch('permission/getAsyncRoutes', roles)
+        this.$router.addRoutes(addRoutes)
+        this.$router.push('/')
+      } catch (err) {
+        throw err
+      }
     }
   },
 

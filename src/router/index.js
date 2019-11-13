@@ -1,10 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
+import {
+  getToken
+} from '@/utils/auth'
 
 import Layout from '@/views/layout'
 
 Vue.use(VueRouter)
+
+/**
+ * 路由相关属性说明
+ * hidden: 当设置hidden为true时，意思不在sideBars侧边栏中显示
+ * mete{
+ * title: xxx,  设置sideBars侧边栏名称
+ * icon: xxx,  设置ideBars侧边栏图标
+ * noCache: true  当设置为true时不缓存该路由页面
+ * }
+ */
 
 /* common routers */
 export const currencyRoutes = [{
@@ -21,6 +34,11 @@ export const currencyRoutes = [{
       icon: 'el-icon-s-data'
     }
   }]
+}, {
+  path: '/login',
+  name: 'Login',
+  hidden: true,
+  component: () => import('@/views/login')
 }]
 
 /* async routers */
@@ -70,17 +88,38 @@ const router = new VueRouter({
   }
 })
 
-// router.beforeEach((to, from, next) => {
-//   next()
-// })
+router.beforeEach(async (to, from, next) => {
+  if (to.path === '/login') {
+    next()
+  } else {
+    if (getToken()) {
+      let hasRoles = store.getters.roles.length > 0
+      if (hasRoles) {
+        next()
+      } else {
+        try {
+          const roles = await store.dispatch('user/login')
+          const addRoutes = await store.dispatch('permission/getAsyncRoutes', roles)
+          router.addRoutes(addRoutes)
 
-// 页面重载
-window.onload = async () => {
-  const addRoutes = await store.dispatch('permission/getAsyncRoutes')
-  console.log(addRoutes)
-  router.addRoutes(addRoutes)
-}
+          next({
+            ...to,
+            replace: true
+          })
+        } catch (err) {
+          throw err
+        }
+      }
+      next()
+    } else {
+      next({
+        path: '/login'
+      })
+    }
+  }
+})
 
+// vue-router 3.x 必需监听 错误
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
