@@ -73,6 +73,6 @@ npm run serve
 
 ## License
 
-<!-- [MIT](https://github.com/gcddblue/vue-admin-webapp/blob/master/LICENSE) -->
+[MIT](https://github.com/Jackzyy/vue-elelment-admin/blob/master/LICENSE)
 
 Copyright (c) 2019 jackzyy
