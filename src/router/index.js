@@ -78,15 +78,25 @@ export const asyncRoutes = [{
   }]
 }]
 
-const router = new VueRouter({
-  routes: currencyRoutes,
-  scrollBehavior () {
-    return {
-      x: 0,
-      y: 0
+const creatRouter = () => {
+  return new VueRouter({
+    routes: currencyRoutes,
+    scrollBehavior () {
+      return {
+        x: 0,
+        y: 0
+      }
     }
-  }
-})
+  })
+}
+
+const router = creatRouter()
+
+// 解决addRoute不能删除动态路由问题
+export function resetRouter () {
+  const reset = creatRouter()
+  router.matcher = reset.matcher
+}
 
 router.beforeEach(async (to, from, next) => {
   if (to.path === '/login') {

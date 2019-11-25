@@ -1,3 +1,7 @@
+import {
+  resetRouter
+} from '@/router'
+
 const state = {
   userName: '',
   token: '',
@@ -53,6 +57,7 @@ const actions = {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
       commit('SET_NAME', '')
+      resetRouter()
     })
   }
 }
