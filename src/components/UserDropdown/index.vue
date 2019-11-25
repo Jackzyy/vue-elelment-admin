@@ -6,7 +6,8 @@
         <i class="el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item icon="el-icon-s-home">
+        <el-dropdown-item icon="el-icon-s-home"
+                          @click.native="handleGoHome">
           首页
         </el-dropdown-item>
         <el-dropdown-item icon="el-icon-s-custom">
@@ -33,6 +34,10 @@ export default {
     handleLoginOut () {
       this.$store.dispatch('user/loginOut')
       this.$router.push('/login')
+    },
+
+    handleGoHome () {
+      this.$router.push('/dashbord')
     }
   }
 }

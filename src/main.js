@@ -3,8 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'normalize.css' // 初始化样式
-import '@/styles/index.scss'
-import ElementUI from 'element-ui' // element ui
+import '@/styles/index.scss' // 全局自定义样式入口
+import ElementUI from 'element-ui' // Element UI
 import 'element-ui/lib/theme-chalk/index.css'
 import animated from 'animate.css' // 动画库
 
