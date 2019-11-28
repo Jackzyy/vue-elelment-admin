@@ -8,7 +8,7 @@
         <img src="https://img.shields.io/badge/vue-2.6.10-brightgreen.svg">
     </a>
     <a href="https://github.com/ElemeFE/element">
-        <img src="https://img.shields.io/badge/elemnet--ui-2.4.5-brightgreen.svg">
+        <img src="https://img.shields.io/badge/elemnet--ui-2.12.0-brightgreen.svg">
     </a>
     <a href="https://github.com/prettier/prettier">
         <img src="https://img.shields.io/badge/code style-prettier-brightgreen.svg">
@@ -55,6 +55,7 @@ npm run serve
 ```
 - 登录 / 注销
   - 登录
+  - 注销
 
 - 页面
   - sideBar收缩和展开
