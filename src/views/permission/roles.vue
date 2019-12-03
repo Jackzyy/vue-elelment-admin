@@ -156,8 +156,6 @@ export default {
       this.dialogVisible = true
     },
 
-    handleCloseDialog() {},
-
     handleGetNodes() {
       // 获取路由Tree选中的节点
       let selectRoutes = []

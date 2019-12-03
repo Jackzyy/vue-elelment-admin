@@ -20,6 +20,16 @@ Vue.use(VueRouter)
 /* common routers */
 export const currencyRoutes = [
   {
+    path: '/login',
+    name: 'Login',
+    hidden: true,
+    component: () => import('@/views/login')
+  }
+]
+
+/* async routers */
+export const asyncRoutes = [
+  {
     path: '/',
     name: 'Home',
     component: Layout,
@@ -36,16 +46,6 @@ export const currencyRoutes = [
       }
     ]
   },
-  {
-    path: '/login',
-    name: 'Login',
-    hidden: true,
-    component: () => import('@/views/login')
-  }
-]
-
-/* async routers */
-export const asyncRoutes = [
   {
     path: '/permission',
     name: 'Permission',

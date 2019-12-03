@@ -1,11 +1,11 @@
 <template>
   <div class="header">
     <div class="header-l">
-      <div class="open-icon">
+      <div id="domColapse" class="open-icon">
         <i v-if="opened" class="el-icon-s-unfold" @click="handleClose"></i>
         <i v-else class="el-icon-s-fold" @click="handleOpen"></i>
       </div>
-      <BreadCrumb></BreadCrumb>
+      <BreadCrumb id="domBread"></BreadCrumb>
     </div>
 
     <div class="header-r">

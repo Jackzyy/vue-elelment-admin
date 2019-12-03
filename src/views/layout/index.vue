@@ -2,7 +2,7 @@
   <div class="layout">
     <el-container>
       <!-- 侧边栏 -->
-      <el-aside>
+      <el-aside id="domSideBar">
         <el-scrollbar>
           <Aside />
         </el-scrollbar>
@@ -29,7 +29,9 @@
 import Aside from './components/Aside/index'
 import Header from './components/Header'
 import PageMain from './components/PageMain'
+import driver from '@/mixins/driver'
 export default {
+  mixins: [driver],
   components: {
     Aside,
     Header,

@@ -1,5 +1,5 @@
 <template>
-  <div class="user-dropdown">
+  <div id="domPersonal" class="user-dropdown">
     <el-dropdown placement="bottom-start">
       <span class="el-dropdown-link">
         admin
@@ -48,6 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-dropdown {
+  padding: 0 10px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -58,7 +59,7 @@ export default {
 
   .el-image {
     border-radius: 50%;
-    margin: 0 6px;
+    margin-left: 6px;
   }
 }
 </style>

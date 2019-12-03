@@ -1,6 +1,10 @@
 <template>
   <div class="full-screen">
-    <i class="el-icon-full-screen" @click="handleFullScreen"></i>
+    <i
+      id="domFullScreen"
+      class="el-icon-full-screen"
+      @click="handleFullScreen"
+    ></i>
   </div>
 </template>
 
@@ -20,7 +24,7 @@ export default {
 <style lang="scss" scoped>
 .full-screen {
   font-size: 20px;
-  margin: 0 18px;
+  padding: 0 10px;
   cursor: pointer;
 }
 </style>
