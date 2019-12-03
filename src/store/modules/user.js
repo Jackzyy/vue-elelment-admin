@@ -1,4 +1,5 @@
 import { resetRouter } from '@/router'
+import { login } from '@/api/login'
 
 const state = {
   userName: '',
@@ -13,22 +14,26 @@ const mutations = {
   SET_ROLES(state, payload) {
     state.roles = payload
   },
-  SET_NAME(state, payload) {
+  SET_USER_NAME(state, payload) {
     state.userName = payload
   }
 }
 
 const actions = {
   // 登陆
-  login({ commit }) {
-    return new Promise(resolve => {
-      let name = 'admin'
-      let token = 'token'
+  _login({ commit }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let info = (await login()).data
+        console.log(info)
 
-      commit('SET_TOKEN', token)
-      commit('SET_NAME', name)
+        commit('SET_TOKEN', info.token)
+        commit('SET_USER_NAME', info.user)
 
-      resolve()
+        resolve(info)
+      } catch (err) {
+        reject(err)
+      }
     })
   },
 
@@ -46,7 +51,7 @@ const actions = {
     return new Promise(() => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
-      commit('SET_NAME', '')
+      commit('SET_USER_NAME', '')
       resetRouter()
     })
   }

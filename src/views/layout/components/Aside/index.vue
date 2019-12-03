@@ -2,11 +2,11 @@
   <div class="sidebar" :class="{ sidebarCloseWidth: opened }">
     <el-menu
       :default-active="activeMenu"
+      :collapse="opened"
+      :collapse-transition="false"
       background-color="#3a3f51"
       text-color="#b5b6bd"
       active-text-color="#4F94D4"
-      :collapse="opened"
-      :collapse-transition="false"
       router
     >
       <el-menu-item class="menu-title">

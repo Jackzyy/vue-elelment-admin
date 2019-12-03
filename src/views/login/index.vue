@@ -3,25 +3,30 @@
     <div class="wrap">
       <div class="wrap-form">
         <div class="form-title">后台管理系统</div>
-        <el-form ref="loginForm" :rules="rules" :model="ruleForm">
+        <el-form ref="loginForm" :model="ruleForm" :rules="rules">
           <el-form-item prop="user">
             <el-input
+              v-model="ruleForm.user"
               placeholder="请输入账号"
               prefix-icon="el-icon-user"
-              v-model="ruleForm.user"
             ></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input
+              v-model="ruleForm.password"
               placeholder="请输入密码"
               prefix-icon="el-icon-lock"
-              v-model="ruleForm.password"
               show-password
             ></el-input>
           </el-form-item>
-          <el-button type="primary" class="loginBtn" @click="handleLogin"
-            >登录</el-button
+          <el-button
+            type="primary"
+            class="loginBtn"
+            v-loading.fullscreen.lock="fullscreenLoading"
+            @click="handleLogin"
           >
+            登录
+          </el-button>
         </el-form>
       </div>
     </div>
@@ -33,6 +38,8 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
+      fullscreenLoading: false,
+      loadingColor: '#000',
       ruleForm: {
         user: 'admin',
         password: '123456'
@@ -50,7 +57,10 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        await this.$store.dispatch('user/login')
+        this.fullscreenLoading = true
+        await this.$store.dispatch('user/_login')
+        this.fullscreenLoading = false
+
         this.$router.push('/')
       } catch (err) {
         throw err
@@ -86,7 +96,7 @@ export default {
     position: relative;
     top: 25%;
     .wrap-form {
-      padding: 20px;
+      padding: 30px;
       box-sizing: border-box;
       position: absolute;
       top: 0;
@@ -112,7 +122,7 @@ export default {
       bottom: 0;
       left: 0;
       background: inherit;
-      filter: blur(12px);
+      filter: blur(10px);
     }
   }
 }

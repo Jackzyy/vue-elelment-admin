@@ -1,7 +1,10 @@
 <template>
   <div class="page-user">
     <el-card>
-      <div class="tag-title">你当前可进入的页面是：</div>
+      <div class="tag-title">
+        <i class="el-icon-s-opportunity"></i>
+        你当前可进入的页面是：
+      </div>
       <el-tag v-for="item in allowRoutes" :key="item">
         {{ item }}
       </el-tag>
