@@ -46,7 +46,7 @@ html {
       }
     }
 
-    .header-r{
+    .header-r {
       display: flex;
       align-items: center;
     }
@@ -56,7 +56,7 @@ html {
     width: auto !important;
     height: 100vh;
     color: rgb(181, 182, 189);
-    background-color: rgb(58, 63, 81);
+    background-color: #3a3f51;
     box-sizing: border-box;
 
     .el-menu {
@@ -64,17 +64,18 @@ html {
     }
 
     .sidebar {
-      width: 200px;
+      width: 220px;
       transition: width 0.3s;
-  
+
       .menu-title {
         text-align: center;
+
         i {
           font-size: 26px;
           color: #fff;
           margin-right: 10px;
         }
-  
+
         span {
           font-weight: bold;
           color: #fff;
@@ -87,7 +88,8 @@ html {
     .el-main {
       height: 90vh !important;
       padding: 0 !important;
-      .page-main{
+
+      .page-main {
         padding: 20px;
       }
     }

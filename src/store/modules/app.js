@@ -3,14 +3,12 @@ const state = {
 }
 
 const mutations = {
-  SET_OPENED (state, payload) {
+  SET_OPENED(state, payload) {
     state.opened = payload
   }
 }
 
-const actions = {
-
-}
+const actions = {}
 
 export default {
   namespaced: true,

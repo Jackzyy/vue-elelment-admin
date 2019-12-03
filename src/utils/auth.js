@@ -1,7 +1,7 @@
 /**
  * 获取Token
  */
-export function getToken () {
+export function getToken() {
   if (localStorage.getItem('vuex')) {
     return JSON.parse(localStorage.getItem('vuex')).user.token
   }
@@ -12,7 +12,7 @@ export function getToken () {
  * 递归扁平化路由 获取meta信息
  * @param {Array} routes
  */
-export function getRoutesMeta (routes) {
+export function getRoutesMeta(routes) {
   let routesTitle = []
   for (let index = 0; index < routes.length; index++) {
     if (routes[index].children) {

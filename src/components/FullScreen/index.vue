@@ -1,7 +1,6 @@
 <template>
   <div class="full-screen">
-    <i class="el-icon-full-screen"
-       @click="handleFullScreen"></i>
+    <i class="el-icon-full-screen" @click="handleFullScreen"></i>
   </div>
 </template>
 
@@ -9,7 +8,7 @@
 import screenfull from 'screenfull'
 export default {
   methods: {
-    handleFullScreen () {
+    handleFullScreen() {
       if (screenfull.isEnabled) {
         screenfull.isFullscreen ? screenfull.exit() : screenfull.request()
       }

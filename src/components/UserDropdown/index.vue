@@ -6,24 +6,27 @@
         <i class="el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item icon="el-icon-s-home"
-                          @click.native="handleGoHome">
+        <el-dropdown-item icon="el-icon-s-home" @click.native="handleGoHome">
           首页
         </el-dropdown-item>
         <el-dropdown-item icon="el-icon-s-custom">
           个人信息
         </el-dropdown-item>
-        <el-dropdown-item divided
-                          icon="el-icon-switch-button"
-                          @click.native="handleLoginOut">
+        <el-dropdown-item
+          divided
+          icon="el-icon-switch-button"
+          @click.native="handleLoginOut"
+        >
           退出登录
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-image style="width: 40px; height: 40px"
-              src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
-              fit="fill">
+    <el-image
+      style="width: 40px; height: 40px"
+      src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+      fit="fill"
+    >
     </el-image>
   </div>
 </template>
@@ -31,12 +34,12 @@
 <script>
 export default {
   methods: {
-    handleLoginOut () {
+    handleLoginOut() {
       this.$store.dispatch('user/loginOut')
       this.$router.push('/login')
     },
 
-    handleGoHome () {
+    handleGoHome() {
       this.$router.push('/dashbord')
     }
   }

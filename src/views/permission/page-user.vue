@@ -2,9 +2,8 @@
   <div class="page-user">
     <el-card>
       <div class="tag-title">你当前可进入的页面是：</div>
-      <el-tag v-for="item in allowRoutes"
-              :key="item">
-        {{item}}
+      <el-tag v-for="item in allowRoutes" :key="item">
+        {{ item }}
       </el-tag>
     </el-card>
   </div>
@@ -15,14 +14,14 @@ import { currencyRoutes } from '@/router'
 import { mapGetters } from 'vuex'
 import { getRoutesMeta } from '@/utils/auth'
 export default {
-  data () {
+  data() {
     return {
       allowRoutes: []
     }
   },
 
   methods: {
-    getAllowRoutes () {
+    getAllowRoutes() {
       let permissionRoutes = [...this.addRoutes, ...currencyRoutes]
       this.allowRoutes = getRoutesMeta(permissionRoutes)
     }
@@ -32,7 +31,7 @@ export default {
     ...mapGetters(['addRoutes'])
   },
 
-  created () {
+  created() {
     this.getAllowRoutes()
   }
 }

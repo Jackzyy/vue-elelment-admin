@@ -7,18 +7,14 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  data () {
-    return {
-
-    }
+  data() {
+    return {}
   },
 
   methods: {
-    ...mapActions('user', [
-      'login'
-    ]),
+    ...mapActions('user', ['login']),
 
-    async handleLogin () {
+    async handleLogin() {
       this.login()
     }
   },
@@ -32,5 +28,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,10 +1,10 @@
 <template>
   <div class="bread-crumb">
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }"
-                          v-show="!isIndex">首页</el-breadcrumb-item>
-      <el-breadcrumb-item v-for="item in breadList"
-                          :key="item.path">
+      <el-breadcrumb-item :to="{ path: '/' }" v-show="!isIndex"
+        >首页</el-breadcrumb-item
+      >
+      <el-breadcrumb-item v-for="item in breadList" :key="item.path">
         {{ item.meta.title }}
       </el-breadcrumb-item>
     </el-breadcrumb>
@@ -13,14 +13,14 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       breadList: []
     }
   },
 
   watch: {
-    $route (route) {
+    $route(route) {
       let filterList = route.matched.filter(item => {
         if (item.meta && item.meta.title) {
           return item
@@ -31,7 +31,7 @@ export default {
   },
 
   computed: {
-    isIndex () {
+    isIndex() {
       let isIndexPage = false
       this.breadList.forEach(item => {
         if (item.path === '/' || item.path === '/dashbord') {
@@ -46,5 +46,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

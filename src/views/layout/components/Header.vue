@@ -2,12 +2,8 @@
   <div class="header">
     <div class="header-l">
       <div class="open-icon">
-        <i v-if="opened"
-           class="el-icon-s-unfold"
-           @click="handleClose"></i>
-        <i v-else
-           class="el-icon-s-fold"
-           @click="handleOpen"></i>
+        <i v-if="opened" class="el-icon-s-unfold" @click="handleClose"></i>
+        <i v-else class="el-icon-s-fold" @click="handleOpen"></i>
       </div>
       <BreadCrumb></BreadCrumb>
     </div>
@@ -16,7 +12,6 @@
       <FullScreen></FullScreen>
       <UserDropdown></UserDropdown>
     </div>
-
   </div>
 </template>
 
@@ -33,15 +28,13 @@ export default {
   },
 
   methods: {
-    handleOpen () {
+    handleOpen() {
       this['SET_OPENED'](true)
     },
-    handleClose () {
+    handleClose() {
       this['SET_OPENED'](false)
     },
-    ...mapMutations('app', [
-      'SET_OPENED'
-    ])
+    ...mapMutations('app', ['SET_OPENED'])
   },
 
   computed: {
@@ -52,5 +45,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

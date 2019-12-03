@@ -1,10 +1,7 @@
-import {
-  asyncRoutes,
-  currencyRoutes
-} from '@/router'
+import { asyncRoutes, currencyRoutes } from '@/router'
 
 // 遍历asyncRoutes动态路由
-function forSearchArr (route, roles) {
+function forSearchArr(route, roles) {
   let arrNew = []
   for (let item of route) {
     let itemNew = {
@@ -26,17 +23,14 @@ const state = {
 }
 
 const mutations = {
-  SET_ROUTES (state, payload) {
+  SET_ROUTES(state, payload) {
     state.routes = [...currencyRoutes, ...payload]
     state.addRoutes = payload
   }
 }
 
 const actions = {
-  getAsyncRoutes ({
-    commit,
-    rootGetters
-  }, roles) {
+  getAsyncRoutes({ commit, rootGetters }, roles) {
     return new Promise(resolve => {
       let routes = []
       if (rootGetters.userName === 'admin') {

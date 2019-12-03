@@ -1,21 +1,24 @@
 <template>
-  <div class="sidebar"
-       :class="{ sidebarCloseWidth:opened }">
-    <el-menu :default-active="activeMenu"
-             background-color="#3a3f51"
-             text-color="#b5b6bd"
-             active-text-color="#4F94D4"
-             :collapse="opened"
-             :collapse-transition="false"
-             router>
+  <div class="sidebar" :class="{ sidebarCloseWidth: opened }">
+    <el-menu
+      :default-active="activeMenu"
+      background-color="#3a3f51"
+      text-color="#b5b6bd"
+      active-text-color="#4F94D4"
+      :collapse="opened"
+      :collapse-transition="false"
+      router
+    >
       <el-menu-item class="menu-title">
         <i class="el-icon-s-platform"></i>
         <span slot="title">Vue Admin</span>
       </el-menu-item>
-      <SidebarItem v-for="item in routes"
-                   :key="item.path"
-                   :item="item"
-                   :base-path="item.path">
+      <SidebarItem
+        v-for="item in routes"
+        :key="item.path"
+        :item="item"
+        :base-path="item.path"
+      >
       </SidebarItem>
     </el-menu>
   </div>
@@ -29,23 +32,16 @@ export default {
     SidebarItem
   },
 
-  methods: {
-
-  },
+  methods: {},
 
   computed: {
-    ...mapGetters([
-      'routes',
-      'addRoutes',
-      'opened'
-    ]),
+    ...mapGetters(['routes', 'addRoutes', 'opened']),
 
-    activeMenu () {
+    activeMenu() {
       return this.$route.path
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
