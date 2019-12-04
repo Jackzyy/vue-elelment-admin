@@ -69,13 +69,14 @@ html {
 
       .menu-title {
         text-align: center;
-
+        position: sticky;
+        top: 0;
+        z-index: 1;
         i {
           font-size: 26px;
           color: #fff;
           margin-right: 10px;
         }
-
         span {
           font-weight: bold;
           color: #fff;
@@ -99,7 +100,8 @@ html {
     width: 64px !important;
   }
 
-  .el-icon-s-opportunity{
+  .el-icon-s-opportunity {
     color: #ffc107;
+    margin-bottom: 16px;
   }
 }

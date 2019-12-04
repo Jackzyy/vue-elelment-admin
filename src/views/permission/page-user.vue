@@ -42,11 +42,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-user {
-  .tag-title {
-    margin: 16px 0;
-  }
   .el-tag {
-    margin-right: 4px;
+    margin: 4px;
   }
 }
 </style>

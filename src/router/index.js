@@ -4,6 +4,7 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 import Layout from '@/views/layout'
+import NavTest from './modules/nav-test'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,12 @@ export const currencyRoutes = [
     name: 'Login',
     hidden: true,
     component: () => import('@/views/login')
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/error-page'),
+    hidden: true
   }
 ]
 
@@ -42,6 +49,23 @@ export const asyncRoutes = [
         meta: {
           title: '首页',
           icon: 'el-icon-s-data'
+        }
+      }
+    ]
+  },
+  {
+    path: '/driver',
+    name: 'Driver',
+    component: Layout,
+    redirect: '/driver/index',
+    children: [
+      {
+        path: 'index',
+        name: 'Driver-index',
+        component: () => import('@/views/guide'),
+        meta: {
+          title: '引导指南',
+          icon: 'el-icon-s-flag'
         }
       }
     ]
@@ -86,21 +110,30 @@ export const asyncRoutes = [
     ]
   },
   {
-    path: '/driver',
-    name: 'Driver',
+    path: '/error',
     component: Layout,
-    redirect: '/driver/index',
+    name: 'Error',
+    redirect: '/error/404',
     children: [
       {
-        path: 'index',
-        name: 'Driver-index',
-        component: () => import('@/views/guide'),
-        meta: {
-          title: '引导指南',
-          icon: 'el-icon-s-flag'
-        }
+        path: '404',
+        name: 'Page404',
+        component: () => import('@/views/error-page'),
+        meta: { title: '404', icon: 'el-icon-s-release' }
       }
     ]
+  },
+  {
+    path: 'https://github.com/Jackzyy/vue-elelment-admin',
+    name: 'Github',
+    meta: { icon: 'el-icon-link', title: '项目链接' }
+  },
+  NavTest,
+  {
+    path: '*',
+    name: '*404',
+    redirect: '/404',
+    hidden: true
   }
 ]
 

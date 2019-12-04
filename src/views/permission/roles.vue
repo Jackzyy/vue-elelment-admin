@@ -52,7 +52,6 @@
             node-key="name"
             ref="tree"
             :data="treeInfo.allRoutes"
-            :default-expanded-keys="formData.pages"
             :props="treeInfo.defaultProps"
             :render-after-expand="false"
           >
