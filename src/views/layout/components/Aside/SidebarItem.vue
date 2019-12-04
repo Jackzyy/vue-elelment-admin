@@ -1,17 +1,16 @@
 <template>
-  <fragment class="sidebar-container" v-if="!item.hidden">
+  <div class="sidebar-container" v-if="!item.hidden">
     <!-- has only child -->
-    <el-menu-item
-      v-if="hasOnlyChild(item.children, item)"
-      :index="resolvePath(childItem.path)"
-    >
-      <i :class="childItem.meta.icon"></i>
-      <span slot="title">{{ childItem.meta.title }}</span>
-    </el-menu-item>
+    <template v-if="hasOnlyChild(item.children, item)">
+      <el-menu-item v-if="childItem.meta" :index="resolvePath(childItem.path)">
+        <i :class="childItem.meta.icon ? childItem.meta.icon : ''"></i>
+        <span slot="title">{{ childItem.meta.title }}</span>
+      </el-menu-item>
+    </template>
 
     <el-submenu v-else :index="resolvePath(item.path)">
       <template slot="title">
-        <i :class="item.meta.icon"></i>
+        <i :class="item.meta.icon ? item.meta.icon : ''"></i>
         <span>{{ item.meta.title }}</span>
       </template>
 
@@ -23,17 +22,13 @@
         :base-path="resolvePath(child.path)"
       />
     </el-submenu>
-  </fragment>
+  </div>
 </template>
 
 <script>
 import path from 'path'
-import { Fragment } from 'vue-fragment'
 export default {
   name: 'SidebarItem',
-  components: {
-    Fragment
-  },
   props: {
     // route object
     item: {
@@ -56,13 +51,9 @@ export default {
     // 只有一个路由 && 路由hidden
     hasOnlyChild(children = [], item) {
       let newChildren = children.filter(obj => {
-        if (obj.hidden) {
-          return false
-        } else {
-          return true
-        }
+        return obj.hidden ? false : true
       })
-      if (newChildren.length === 1 && !item.meta) {
+      if (newChildren.length === 1) {
         this.childItem = newChildren[0]
         return true
       }

@@ -113,6 +113,9 @@ export default {
     formatRoutes(routesArr) {
       return routesArr
         .filter(item => {
+          if (item.children && item.children.length === 1) {
+            return !(item.hidden || item.children[0].hidden)
+          }
           return !item.hidden
         })
         .map(item => {
