@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-container" v-if="!item.hidden">
+  <fragment class="sidebar-container" v-if="!item.hidden">
     <!-- has only child -->
     <template v-if="hasOnlyChild(item.children, item)">
       <el-menu-item v-if="childItem.meta" :index="resolvePath(childItem.path)">
@@ -22,13 +22,17 @@
         :base-path="resolvePath(child.path)"
       />
     </el-submenu>
-  </div>
+  </fragment>
 </template>
 
 <script>
 import path from 'path'
+import { Fragment } from 'vue-fragment'
 export default {
   name: 'SidebarItem',
+  components: {
+    Fragment
+  },
   props: {
     // route object
     item: {
@@ -48,7 +52,7 @@ export default {
   },
 
   methods: {
-    // 只有一个路由 && 路由hidden
+    // 路由处理 hidden、只有一个children
     hasOnlyChild(children = [], item) {
       let newChildren = children.filter(obj => {
         return obj.hidden ? false : true

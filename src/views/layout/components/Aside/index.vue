@@ -37,7 +37,7 @@ export default {
   computed: {
     ...mapGetters(['routes', 'addRoutes', 'opened']),
 
-    // 默认激活项 防止刷新丢失激活状态
+    // 默认激活项
     activeMenu() {
       return this.$route.path
     }

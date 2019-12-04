@@ -38,7 +38,6 @@ export const asyncRoutes = [
       {
         path: 'dashbord',
         name: 'Dashbord',
-        hidden: true,
         component: () => import('@/views/dashboard'),
         meta: {
           title: '首页',
@@ -85,6 +84,23 @@ export const asyncRoutes = [
         }
       }
     ]
+  },
+  {
+    path: '/driver',
+    name: 'Driver',
+    component: Layout,
+    redirect: '/driver/index',
+    children: [
+      {
+        path: 'index',
+        name: 'Driver-index',
+        component: () => import('@/views/guide'),
+        meta: {
+          title: '引导指南',
+          icon: 'el-icon-s-flag'
+        }
+      }
+    ]
   }
 ]
 
@@ -108,6 +124,7 @@ export function resetRouter() {
   router.matcher = reset.matcher
 }
 
+// 刷新页面处理逻辑
 router.beforeEach(async (to, from, next) => {
   if (to.path === '/login') {
     next()
