@@ -1,6 +1,6 @@
 const state = {
-  opened: false,
-  showDriver: true // true: 需要导航
+  opened: false, // 菜单侧边栏展开状态 true:打开 false:关闭
+  showDriver: true // 导航状态 true:需要 false:不需要
 }
 
 const mutations = {

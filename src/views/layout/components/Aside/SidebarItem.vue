@@ -53,8 +53,8 @@ export default {
   },
 
   methods: {
+    // 只有一个路由 && 路由hidden
     hasOnlyChild(children = [], item) {
-      // debugger
       let newChildren = children.filter(obj => {
         if (obj.hidden) {
           return false
@@ -73,6 +73,7 @@ export default {
       return false
     },
 
+    // 路由地址拼接
     resolvePath: function(router) {
       return path.join(this.basePath, router)
     }

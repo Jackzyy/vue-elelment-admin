@@ -48,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-dropdown {
-  padding: 0 10px;
+  padding: 2px 10px;
   display: flex;
   align-items: center;
   cursor: pointer;

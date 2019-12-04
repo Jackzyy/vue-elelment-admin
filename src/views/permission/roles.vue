@@ -5,8 +5,8 @@
 
       <!-- 权限角色 -->
       <el-table
-        v-loading="rolesTabLoading"
-        :data="rolesTab"
+        v-loading="rolesTabDataLoading"
+        :data="rolesTabData"
         stripe
         border
         style="width: 80%"
@@ -74,15 +74,16 @@ export default {
   data() {
     return {
       treeInfo: {
-        allRoutes: [...asyncRoutes], // 只需要异步路由即可
+        allRoutes: this.formatRoutes([...asyncRoutes]), // 树形图渲染结构数据
         defaultProps: {
           children: 'children',
           label: item => item.meta.title
         }
       },
       dialogVisible: false, // 对话框显示
-      formData: {},
+      formData: {}, //  对话框表单数据
       rules: {
+        // 表单校验规则
         key: [
           {
             required: true,
@@ -98,8 +99,8 @@ export default {
           }
         ]
       },
-      rolesTab: [],
-      rolesTabLoading: false
+      rolesTabData: [], // 角色表格数据
+      rolesTabDataLoading: false // 表格Loading
     }
   },
 
@@ -108,16 +109,38 @@ export default {
   },
 
   methods: {
-    async getRolesArr() {
-      this.rolesTabLoading = true
-      this.rolesTab = (await getRoles()).data.allRoles
-      this.rolesTabLoading = false
+    // 格式化路由数组结构，处理只有一个children和hidden的情景
+    formatRoutes(routesArr) {
+      return routesArr
+        .filter(item => {
+          return !item.hidden
+        })
+        .map(item => {
+          // 子叶存在 但是只有一个时
+          if (item.children && item.children.length === 1) {
+            return item.children[0]
+          }
+          // 子叶有多个
+          if (item.children) {
+            item.children = this.formatRoutes(item.children)
+          }
+          return item
+        })
     },
 
+    // Ajax获取角色权限信息
+    async getRolesArr() {
+      this.rolesTabDataLoading = true
+      this.rolesTabData = (await getRoles()).data.allRoles
+      this.rolesTabDataLoading = false
+    },
+
+    // 角色Admin不可编辑
     isAdmin(row) {
       return row.key === 'admin'
     },
 
+    // 编辑角色权限
     editRoles(index, row) {
       this.formData = row
       this.$nextTick(() => {
@@ -128,6 +151,7 @@ export default {
       this.dialogVisible = true
     },
 
+    // 删除角色
     async deleteRoles(index, row) {
       try {
         await this.$confirm('此操作将永久删除相关数据, 是否继续?', '提示', {
@@ -136,10 +160,10 @@ export default {
           type: 'warning'
         })
 
-        this.rolesTabLoading = true
+        this.rolesTabDataLoading = true
         setTimeout(() => {
-          this.rolesTab.splice(index, 1)
-          this.rolesTabLoading = false
+          this.rolesTabData.splice(index, 1)
+          this.rolesTabDataLoading = false
         }, 3000)
 
         console.log(row)
@@ -148,6 +172,7 @@ export default {
       }
     },
 
+    // 添加角色
     handleAddRoles() {
       this.formData = {}
       this.$nextTick(() => {
@@ -156,8 +181,8 @@ export default {
       this.dialogVisible = true
     },
 
+    // 获取路由Tree选中的节点
     handleGetNodes() {
-      // 获取路由Tree选中的节点
       let selectRoutes = []
       let routes = this.$refs.tree.getCheckedNodes(false, true)
       for (let i = 0; i < routes.length; i++) {
@@ -166,6 +191,7 @@ export default {
       return selectRoutes
     },
 
+    // 权限确认
     handleSubmit() {
       this.formData.pages = this.handleGetNodes()
       this.dialogVisible = false

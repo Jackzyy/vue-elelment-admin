@@ -9,12 +9,14 @@ Vue.use(VueRouter)
 
 /**
  * 路由相关属性说明
- * hidden: 当设置hidden为true时，意思不在sideBars侧边栏中显示
+ * hidden: 当设置hidden为true时，意思不在sideBars侧边栏中显示，当只有一个子路由时，hidden应放在外层
  * mete{
- * title: xxx,  设置sideBars侧边栏名称
- * icon: xxx,  设置ideBars侧边栏图标
- * noCache: true  当设置为true时不缓存该路由页面
+ *  title: xxx,  设置sideBars侧边栏名称
+ *  icon: xxx,  设置ideBars侧边栏图标
+ *  noCache: true  当设置为true时不缓存该路由页面
  * }
+ * 树形图隐藏节点说明
+ * 1，当只有一个子路由时，hidden应放在外层，而不是children内层
  */
 
 /* common routers */

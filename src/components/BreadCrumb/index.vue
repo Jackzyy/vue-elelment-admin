@@ -31,6 +31,7 @@ export default {
   },
 
   computed: {
+    // 判断是否在首页
     isIndex() {
       let isIndexPage = false
       this.breadList.forEach(item => {

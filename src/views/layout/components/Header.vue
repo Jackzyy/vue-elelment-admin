@@ -2,8 +2,8 @@
   <div class="header">
     <div class="header-l">
       <div id="domColapse" class="open-icon">
-        <i v-if="opened" class="el-icon-s-unfold" @click="handleClose"></i>
-        <i v-else class="el-icon-s-fold" @click="handleOpen"></i>
+        <i v-if="opened" class="el-icon-s-fold" @click="handleClose"></i>
+        <i v-else class="el-icon-s-unfold" @click="handleOpen"></i>
       </div>
       <BreadCrumb id="domBread"></BreadCrumb>
     </div>
@@ -28,12 +28,16 @@ export default {
   },
 
   methods: {
+    // 侧边栏展开
     handleOpen() {
       this['SET_OPENED'](true)
     },
+
+    // 侧边栏关闭
     handleClose() {
       this['SET_OPENED'](false)
     },
+
     ...mapMutations('app', ['SET_OPENED'])
   },
 

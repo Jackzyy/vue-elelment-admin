@@ -1,8 +1,8 @@
 <template>
-  <div class="sidebar" :class="{ sidebarCloseWidth: opened }">
+  <div class="sidebar" :class="{ sidebarCloseWidth: !opened }">
     <el-menu
       :default-active="activeMenu"
-      :collapse="opened"
+      :collapse="!opened"
       :collapse-transition="false"
       background-color="#3a3f51"
       text-color="#b5b6bd"
@@ -37,6 +37,7 @@ export default {
   computed: {
     ...mapGetters(['routes', 'addRoutes', 'opened']),
 
+    // 默认激活项 防止刷新丢失激活状态
     activeMenu() {
       return this.$route.path
     }

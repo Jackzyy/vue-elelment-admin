@@ -6,6 +6,7 @@ const path = require('path')
 
 Vue.use(Vuex)
 
+// 动态添加modules
 const files = require.context('./modules', false, /\.js$/)
 let modules = {}
 files.keys().forEach(key => {

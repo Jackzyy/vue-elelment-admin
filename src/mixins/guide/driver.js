@@ -24,7 +24,9 @@ export default {
 
   methods: {
     guide() {
+      // 填充导航步骤
       this.driver.defineSteps(steps)
+      // 导航开始
       this.driver.start()
     }
   }

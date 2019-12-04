@@ -1,3 +1,4 @@
+// Store State 统一出口
 const getters = {
   userName: state => state.user.userName,
   token: state => state.user.token,
