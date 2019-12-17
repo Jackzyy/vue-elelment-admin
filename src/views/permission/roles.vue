@@ -6,10 +6,10 @@
       <!-- 权限角色 -->
       <el-table
         v-loading="rolesTabDataLoading"
-        :data="rolesTabData"
         stripe
         border
         style="width: 80%"
+        :data="rolesTabData"
       >
         <el-table-column prop="key" label="身份"></el-table-column>
         <el-table-column prop="description" label="说明"></el-table-column>
@@ -24,8 +24,8 @@
             <el-button
               type="warning"
               size="mini"
-              @click="deleteRoles(scope.$index)"
               :disabled="isAdmin(scope.row)"
+              @click="deleteRoles(scope.$index)"
               >删除</el-button
             >
           </template>

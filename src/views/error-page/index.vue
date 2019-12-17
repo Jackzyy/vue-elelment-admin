@@ -4,7 +4,9 @@
       <p>Oooops! Sorry The Page Not Found :(</p>
       <p>You can back to <router-link to="/">Home</router-link></p>
     </div>
-    <img src="@/assets/404/img-404.png" alt="404" />
+    <div class="err-page-bg">
+      <img src="@/assets/404/img-404.png" alt="404" />
+    </div>
   </div>
 </template>
 
@@ -14,17 +16,24 @@ export default {}
 
 <style lang="scss" scoped>
 .err-page {
-  overflow: hidden;
+  width: auto;
+  height: 100vh;
   position: relative;
-  background-color: #ccc;
   .page-tips {
     position: absolute;
     top: 10%;
     left: 10%;
+    z-index: 10;
   }
-  img {
+  .err-page-bg {
+    position: absolute;
     width: 100%;
     height: 100%;
+    background-color: #ccc;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
