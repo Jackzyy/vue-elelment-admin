@@ -154,7 +154,7 @@ export default {
     },
 
     // 删除角色
-    async deleteRoles(index, row) {
+    async deleteRoles(index) {
       try {
         await this.$confirm('此操作将永久删除相关数据, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -167,8 +167,6 @@ export default {
           this.rolesTabData.splice(index, 1)
           this.rolesTabDataLoading = false
         }, 3000)
-
-        console.log(row)
       } catch (err) {
         throw err
       }

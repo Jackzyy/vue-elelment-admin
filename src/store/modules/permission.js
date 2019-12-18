@@ -34,7 +34,6 @@ const actions = {
     return new Promise(resolve => {
       let routes = []
       if (rootGetters.userName === 'admin') {
-        console.log('admin')
         routes = asyncRoutes || ''
       } else {
         routes = forSearchArr(asyncRoutes, roles)

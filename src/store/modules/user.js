@@ -25,7 +25,6 @@ const actions = {
     return new Promise(async (resolve, reject) => {
       try {
         let info = (await login()).data
-        console.log(info)
 
         commit('SET_TOKEN', info.token)
         commit('SET_USER_NAME', info.user)
