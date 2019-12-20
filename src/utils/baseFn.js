@@ -16,7 +16,6 @@ let baseFn = {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           position => {
-            console.log('1', position)
             let latitude = position.coords.latitude
             let longitude = position.coords.longitude
             let data = {
