@@ -22,7 +22,6 @@ let baseFn = {
               latitude,
               longitude
             }
-            console.log(data)
             resolve(data)
           },
           err => {

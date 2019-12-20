@@ -22,9 +22,12 @@ export default {
       // 经纬度
       let position = await this.$baseFn.getPosition()
       // 地区码
-      let adcode = await getLocation({
-        location: `${position.latitude},${position.longitude}`
-      }).regeocode.addressComponent.adcode
+      let adcode = (
+        await getLocation({
+          location: `${position.longitude},${position.latitude}`
+          // location: JSON.stringify('39.9657822,116.3066858')
+        })
+      ).data.regeocode.addressComponent.adcode
       // 天气信息
       this.weatherInfo = await getWeather({ city: adcode })
     }
