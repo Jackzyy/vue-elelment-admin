@@ -36,7 +36,14 @@ export default {
   methods: {
     handleLoginOut() {
       this.$store.dispatch('user/loginOut')
-      this.$router.push('/login')
+      this.$message({
+        message: '用户退出登陆',
+        type: 'warning',
+        center: true
+      })
+      setTimeout(() => {
+        this.$router.push('/login')
+      }, 1000)
     },
 
     handleGoHome() {

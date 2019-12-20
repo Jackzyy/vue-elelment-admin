@@ -1,67 +1,19 @@
 <template>
   <div class="dashboard">
     <el-row :gutter="20" class="data-info">
-      <el-col :span="6">
+      <el-col :span="6" v-for="(item, index) in cardData" :key="index">
         <el-card>
           <div class="card-content">
             <div class="card-info">
               <count-to
-                class="color-green"
+                :class="cardDataStyle[index]"
                 :startVal="startVal"
-                :endVal="89213"
+                :endVal="item.value"
                 :duration="2000"
               ></count-to>
-              <span>Total Visitors</span>
+              <span>{{ item.name }}</span>
             </div>
-            <i class="el-icon-user color-green"></i>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card>
-          <div class="card-content">
-            <div class="card-info">
-              <count-to
-                class="color-blue"
-                :startVal="startVal"
-                :endVal="31241"
-                :duration="2000"
-              ></count-to>
-              <span>Total Visitors</span>
-            </div>
-            <i class="el-icon-goods color-blue"></i>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card>
-          <div class="card-content">
-            <div class="card-info">
-              <count-to
-                class="color-red"
-                :startVal="startVal"
-                :endVal="31243"
-                :duration="2000"
-              ></count-to>
-              <span>Total Visitors</span>
-            </div>
-            <i class="el-icon-camera color-red"></i>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card>
-          <div class="card-content">
-            <div class="card-info">
-              <count-to
-                class="color-green2"
-                :startVal="startVal"
-                :endVal="32424"
-                :duration="2000"
-              ></count-to>
-              <span>Total Visitors</span>
-            </div>
-            <i class="el-icon-bell color-green2"></i>
+            <i :class="`${cardDataIcon[index]} ${cardDataStyle[index]}`"></i>
           </div>
         </el-card>
       </el-col>
@@ -76,21 +28,7 @@
     <el-row :gutter="20">
       <el-col :span="14">
         <el-card>
-          <el-table :data="tableList" width="100%">
-            <el-table-column prop="id" label="ID" sortable width="180">
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="180">
-            </el-table-column>
-            <el-table-column prop="price" label="价格" width="100">
-            </el-table-column>
-            <el-table-column prop="quantity" label="数量" width="100">
-            </el-table-column>
-            <el-table-column prop="status" label="状态" width="100">
-              <template slot-scope="scope">
-                <el-tag>{{ scope.row.status }} </el-tag>
-              </template>
-            </el-table-column>
-          </el-table>
+          <Table :tableList="tableList"></Table>
         </el-card>
       </el-col>
       <el-col :span="10">
@@ -111,18 +49,28 @@
 
 <script>
 import ECharts from './components/ECharts'
+import Table from './components/Table'
 import CountTo from 'vue-count-to'
-import { getTableList } from '@/api/dashboard'
+import { getTableList, getCardsData } from '@/api/dashboard'
 export default {
   components: {
     ECharts,
-    CountTo
+    CountTo,
+    Table
   },
 
   data() {
     return {
       startVal: 0,
       tableList: [],
+      cardData: [],
+      cardDataStyle: ['color-green', 'color-blue', 'color-red', 'color-green2'],
+      cardDataIcon: [
+        'el-icon-user',
+        'el-icon-chat-dot-square',
+        'el-icon-goods',
+        'el-icon-bank-card'
+      ],
       pieOptions: {
         tooltip: {
           trigger: 'item',
@@ -322,6 +270,7 @@ export default {
 
   async created() {
     this.tableList = (await getTableList()).data.tableList
+    this.cardData = (await getCardsData()).data
   },
 
   methods: {}

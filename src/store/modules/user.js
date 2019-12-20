@@ -21,10 +21,10 @@ const mutations = {
 
 const actions = {
   // 登陆
-  _login({ commit }) {
+  _login({ commit }, userInfo) {
     return new Promise(async (resolve, reject) => {
       try {
-        let info = (await login()).data
+        let info = (await login(userInfo)).data.userInfo
 
         commit('SET_TOKEN', info.token)
         commit('SET_USER_NAME', info.user)
@@ -38,20 +38,29 @@ const actions = {
 
   // 获取角色权限信息
   getUserRoles({ commit }) {
-    return new Promise(resolve => {
-      let roles = ['Permission', 'PageAdmin']
-      commit('SET_ROLES', roles)
-      resolve(roles)
+    return new Promise((resolve, reject) => {
+      try {
+        let roles = ['Permission', 'PageAdmin']
+        commit('SET_ROLES', roles)
+        resolve(roles)
+      } catch (err) {
+        reject(err)
+      }
     })
   },
 
   // 登出
   loginOut({ commit }) {
-    return new Promise(() => {
-      commit('SET_TOKEN', '')
-      commit('SET_ROLES', [])
-      commit('SET_USER_NAME', '')
-      resetRouter()
+    return new Promise((resolve, reject) => {
+      try {
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        commit('SET_USER_NAME', '')
+        resetRouter()
+        resolve()
+      } catch (err) {
+        reject(err)
+      }
     })
   }
 }

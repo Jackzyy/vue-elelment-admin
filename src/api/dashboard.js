@@ -6,3 +6,10 @@ export function getTableList() {
     method: 'get'
   })
 }
+
+export function getCardsData() {
+  return request({
+    url: '/getCardsData',
+    method: 'get'
+  })
+}

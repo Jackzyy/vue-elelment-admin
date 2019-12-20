@@ -27,7 +27,17 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   response => {
-    return response.data
+    const res = response.data
+    if (res.code != 200) {
+      Message({
+        message: res.msg,
+        type: 'error',
+        center: true
+      })
+      return Promise.reject('error')
+    } else {
+      return response.data
+    }
   },
   /**
    * 下面的注释为通过在response里，自定义code来标示请求状态
@@ -63,11 +73,20 @@ service.interceptors.response.use(
   //   }
   // },
   error => {
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    // 请求超时或者网络有问题
+    if (error.message.includes('timeout')) {
+      Message({
+        message: '请求超时！请检查网络是否正常',
+        type: 'error',
+        center: true
+      })
+    } else {
+      Message({
+        message: '请求失败，请检查网络是否已连接',
+        type: 'error',
+        center: true
+      })
+    }
     return Promise.reject(error)
   }
 )

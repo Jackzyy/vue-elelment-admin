@@ -58,11 +58,18 @@ export default {
     async handleLogin() {
       try {
         this.fullscreenLoading = true
-        await this.$store.dispatch('user/_login')
+        await this.$store.dispatch('user/_login', this.ruleForm)
         this.fullscreenLoading = false
-
-        this.$router.push('/')
+        this.$message({
+          message: '用户登陆成功',
+          type: 'success',
+          center: true
+        })
+        setTimeout(() => {
+          this.$router.push('/')
+        }, 1000)
       } catch (err) {
+        this.fullscreenLoading = false
         throw err
       }
     }
