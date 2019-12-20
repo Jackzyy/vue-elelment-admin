@@ -9,7 +9,7 @@ let baseFn = {
 
   /**
    * H5获取经纬度
-   * 谷歌浏览器需要在HTTPS下才能正常获取
+   * 谷歌浏览器需要在HTTPS下才能正常获取参数
    */
   getPosition() {
     return new Promise((resolve, reject) => {
