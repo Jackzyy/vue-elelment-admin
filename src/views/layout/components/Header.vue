@@ -9,6 +9,7 @@
     </div>
 
     <div class="header-r">
+      <Weather></Weather>
       <FullScreen></FullScreen>
       <UserDropdown></UserDropdown>
     </div>
@@ -20,11 +21,13 @@ import { mapState, mapMutations } from 'vuex'
 import BreadCrumb from '@/components/BreadCrumb'
 import UserDropdown from '@/components/UserDropdown'
 import FullScreen from '@/components/FullScreen'
+import Weather from '@/components/Weather'
 export default {
   components: {
     BreadCrumb,
     UserDropdown,
-    FullScreen
+    FullScreen,
+    Weather
   },
 
   methods: {
