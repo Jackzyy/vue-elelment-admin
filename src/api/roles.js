@@ -34,6 +34,17 @@ export function queryUser(data) {
 }
 
 /**
+ * 删除用户
+ */
+export function delUser(data) {
+  return request({
+    url: '/user/query',
+    method: 'get',
+    params: data
+  })
+}
+
+/**
  * 查询所有角色
  */
 export function queryRoles(data) {

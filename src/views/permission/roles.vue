@@ -1,7 +1,9 @@
 <template>
   <div class="roles">
     <el-card>
-      <el-button type="primary" @click="handleAddRoles">添加权限</el-button>
+      <el-button class="add-role" type="primary" @click="handleAddRoles"
+        >添加权限</el-button
+      >
 
       <!-- 权限角色 -->
       <el-table
@@ -9,7 +11,7 @@
         stripe
         border
         style="width: 80%"
-        :data="rolesTabData"
+        :data="rolesTabData.roles"
       >
         <el-table-column prop="name" label="身份"></el-table-column>
         <el-table-column prop="desc" label="说明"></el-table-column>
@@ -32,6 +34,15 @@
           </template>
         </el-table-column>
       </el-table>
+
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="rolesTabData.count"
+        :page-size="queryParams.pageSize"
+        @current-change="handlePages"
+      >
+      </el-pagination>
 
       <!-- 权限树形图 -->
       <el-dialog title="权限编辑" :visible.sync="dialogVisible" width="800px">
@@ -102,7 +113,12 @@ export default {
           }
         ]
       },
-      rolesTabData: [], // 角色表格数据
+      // 查询参数
+      queryParams: {
+        currentPage: 0,
+        pageSize: 10
+      },
+      rolesTabData: {}, // 角色表格数据
       rolesTabDataLoading: false, // 表格Loading
       fullscreenLoading: false // 全屏Loading
     }
@@ -116,7 +132,7 @@ export default {
     // Ajax获取角色权限信息
     async getRolesArr() {
       this.rolesTabDataLoading = true
-      this.rolesTabData = (await queryRoles()).data
+      this.rolesTabData = (await queryRoles(this.queryParams)).data
       this.rolesTabDataLoading = false
     },
 
@@ -127,7 +143,7 @@ export default {
         await createRoles(this.formData)
         await this.getRolesArr()
         this.$message({
-          message: '角色创建成功',
+          message: '创建成功',
           type: 'success',
           center: true
         })
@@ -146,7 +162,7 @@ export default {
         await this.getRolesArr()
         this.rolesTabDataLoading = false
         this.$message({
-          message: '角色删除成功',
+          message: '删除成功',
           type: 'success',
           center: true
         })
@@ -164,16 +180,20 @@ export default {
         await editRoles(this.formData)
         await this.getRolesArr()
         this.$message({
-          message: '角色编辑成功',
+          message: '编辑成功',
           type: 'success',
           center: true
         })
       } catch (err) {
         throw err
       } finally {
-        console.log(111111)
         this.fullscreenLoading = false
       }
+    },
+
+    handlePages(val) {
+      this.queryParams.currentPage = val - 1
+      this.getRolesArr()
     },
 
     // 格式化路由数组结构，处理只有一个children和hidden的情景
@@ -262,7 +282,7 @@ export default {
         default:
           break
       }
-      this.dialogVisible = false
+      // this.dialogVisible = false
     }
   }
 }
@@ -281,8 +301,23 @@ export default {
       width: 90%;
     }
   }
-  .el-table {
-    margin-top: 30px;
+  .el-card {
+    min-height: 88vh;
+    position: relative;
+    .add-role {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+    .el-table {
+      margin-bottom: 50px;
+    }
+    .el-pagination {
+      text-align: right;
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+    }
   }
 }
 </style>

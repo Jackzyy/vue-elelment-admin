@@ -4,7 +4,6 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 import Layout from '@/views/layout'
-import NavTest from './modules/nav-test'
 
 Vue.use(VueRouter)
 
@@ -109,26 +108,6 @@ export const asyncRoutes = [
       }
     ]
   },
-  {
-    path: '/error',
-    component: Layout,
-    name: 'Error',
-    redirect: '/error/404',
-    children: [
-      {
-        path: '404',
-        name: 'Page404',
-        component: () => import('@/views/error-page'),
-        meta: { title: '404', icon: 'el-icon-s-release' }
-      }
-    ]
-  },
-  {
-    path: 'https://github.com/Jackzyy/vue-elelment-admin',
-    name: 'Github',
-    meta: { icon: 'el-icon-link', title: '项目链接' }
-  },
-  NavTest,
   {
     path: '*',
     name: '*404',
