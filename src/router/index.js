@@ -27,16 +27,6 @@ export const currencyRoutes = [
     component: () => import('@/views/login')
   },
   {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/error-page'),
-    hidden: true
-  }
-]
-
-/* async routers */
-export const asyncRoutes = [
-  {
     path: '/',
     name: 'Home',
     component: Layout,
@@ -70,6 +60,16 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/error-page'),
+    hidden: true
+  }
+]
+
+/* async routers */
+export const asyncRoutes = [
   {
     path: '/permission',
     name: 'Permission',
@@ -163,15 +163,15 @@ router.beforeEach(async (to, from, next) => {
     next()
   } else {
     if (getToken()) {
-      let hasRoles = store.getters.roles.length > 0
+      let hasRoles = store.getters.rolePages
       if (hasRoles) {
         next()
       } else {
         try {
-          const roles = await store.dispatch('user/getUserRoles')
+          const roleinfo = await store.dispatch('user/getUserRoles')
           const addRoutes = await store.dispatch(
             'permission/getAsyncRoutes',
-            roles
+            roleinfo
           )
           router.addRoutes(addRoutes)
 

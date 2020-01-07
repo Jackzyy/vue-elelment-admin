@@ -1,33 +1,34 @@
 import { resetRouter } from '@/router'
 import { login } from '@/api/login'
+import { getRoles } from '@/api/roles'
 
 const state = {
-  userName: '',
-  token: '',
-  roles: []
+  userinfo: {},
+  roleinfo: {},
+  token: ''
 }
 
 const mutations = {
   SET_TOKEN(state, val) {
     state.token = val
   },
-  SET_ROLES(state, payload) {
-    state.roles = payload
+  SET_ROLE_INFO(state, payload) {
+    state.roleinfo = payload
   },
-  SET_USER_NAME(state, payload) {
-    state.userName = payload
+  SET_USER_INFO(state, payload) {
+    state.userinfo = payload
   }
 }
 
 const actions = {
   // 登陆
-  _login({ commit }, userInfo) {
+  _login({ commit }, info) {
     return new Promise(async (resolve, reject) => {
       try {
-        let info = (await login(userInfo)).data.userInfo
-
-        commit('SET_TOKEN', info.token)
-        commit('SET_USER_NAME', info.user)
+        let { userinfo, token } = (await login(info)).data
+        console.log(userinfo, token)
+        commit('SET_USER_INFO', userinfo)
+        commit('SET_TOKEN', token)
 
         resolve(info)
       } catch (err) {
@@ -38,11 +39,11 @@ const actions = {
 
   // 获取角色权限信息
   getUserRoles({ commit }) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        let roles = ['Permission', 'PageAdmin']
-        commit('SET_ROLES', roles)
-        resolve(roles)
+        let role = (await getRoles()).data.role
+        commit('SET_ROLE_INFO', role)
+        resolve(role)
       } catch (err) {
         reject(err)
       }
@@ -54,8 +55,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       try {
         commit('SET_TOKEN', '')
-        commit('SET_ROLES', [])
-        commit('SET_USER_NAME', '')
+        commit('SET_ROLE_INFO', {})
+        commit('SET_USER_INFO', {})
         resetRouter()
         resolve()
       } catch (err) {

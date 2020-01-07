@@ -13,7 +13,7 @@ const appPlugins = createPersistedState({
       user: {
         // 此结构必需与State结构相同，否则刷新还原数据时解构赋值错位
         token: store.user.token,
-        userName: store.user.userName
+        userinfo: store.user.userinfo
       }
     }
   }

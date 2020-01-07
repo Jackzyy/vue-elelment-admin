@@ -11,21 +11,22 @@
         style="width: 80%"
         :data="rolesTabData"
       >
-        <el-table-column prop="key" label="身份"></el-table-column>
-        <el-table-column prop="description" label="说明"></el-table-column>
+        <el-table-column prop="name" label="身份"></el-table-column>
+        <el-table-column prop="desc" label="说明"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button
               type="primary"
               size="mini"
-              @click="editRoles(scope.$index, scope.row)"
+              :disabled="isAdmin(scope.row)"
+              @click="handleEditRoles(scope.$index, scope.row)"
               >编辑</el-button
             >
             <el-button
               type="warning"
               size="mini"
               :disabled="isAdmin(scope.row)"
-              @click="deleteRoles(scope.$index)"
+              @click="handleDeleteRoles(scope.$index, scope.row)"
               >删除</el-button
             >
           </template>
@@ -35,14 +36,11 @@
       <!-- 权限树形图 -->
       <el-dialog title="权限编辑" :visible.sync="dialogVisible" width="800px">
         <el-form ref="rolesForm" :model="formData" :rules="rules">
-          <el-form-item label="身份" prop="key" label-width="70px">
-            <el-input v-model="formData.key" autocomplete="off"></el-input>
+          <el-form-item label="身份" prop="name" label-width="70px">
+            <el-input v-model="formData.name" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="说明" prop="description" label-width="70px">
-            <el-input
-              v-model="formData.description"
-              autocomplete="off"
-            ></el-input>
+          <el-form-item label="说明" prop="desc" label-width="70px">
+            <el-input v-model="formData.desc" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <div class="roles-tree">
@@ -59,7 +57,12 @@
         </div>
         <span slot="footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="handleSubmit">确 定</el-button>
+          <el-button
+            type="primary"
+            v-loading.fullscreen.lock="fullscreenLoading"
+            @click="handleSubmit"
+            >确 定</el-button
+          >
         </span>
       </el-dialog>
     </el-card>
@@ -68,10 +71,11 @@
 
 <script>
 import { asyncRoutes } from '@/router'
-import { getRoles } from '@/api/roles'
+import { createRoles, delRoles, editRoles, queryRoles } from '@/api/roles'
 export default {
   data() {
     return {
+      submitType: 0, // 0:创建角色 1:编辑角色
       treeInfo: {
         allRoutes: this.formatRoutes([...asyncRoutes]), // 树形图渲染结构数据
         defaultProps: {
@@ -83,14 +87,14 @@ export default {
       formData: {}, //  对话框表单数据
       rules: {
         // 表单校验规则
-        key: [
+        name: [
           {
             required: true,
             message: '请输入要添加的身份类别',
             trigger: 'blur'
           }
         ],
-        description: [
+        desc: [
           {
             required: true,
             message: '请输入相关说明',
@@ -99,7 +103,8 @@ export default {
         ]
       },
       rolesTabData: [], // 角色表格数据
-      rolesTabDataLoading: false // 表格Loading
+      rolesTabDataLoading: false, // 表格Loading
+      fullscreenLoading: false // 全屏Loading
     }
   },
 
@@ -108,6 +113,69 @@ export default {
   },
 
   methods: {
+    // Ajax获取角色权限信息
+    async getRolesArr() {
+      this.rolesTabDataLoading = true
+      this.rolesTabData = (await queryRoles()).data
+      this.rolesTabDataLoading = false
+    },
+
+    // Ajax创建角色
+    async createRoles() {
+      try {
+        this.fullscreenLoading = true
+        await createRoles(this.formData)
+        await this.getRolesArr()
+        this.$message({
+          message: '角色创建成功',
+          type: 'success',
+          center: true
+        })
+      } catch (err) {
+        throw err
+      } finally {
+        this.fullscreenLoading = false
+      }
+    },
+
+    // Ajax删除角色
+    async delRoles(index, row) {
+      try {
+        this.rolesTabDataLoading = true
+        await delRoles({ id: row._id })
+        await this.getRolesArr()
+        this.rolesTabDataLoading = false
+        this.$message({
+          message: '角色删除成功',
+          type: 'success',
+          center: true
+        })
+      } catch (err) {
+        throw err
+      } finally {
+        this.rolesTabDataLoading = false
+      }
+    },
+
+    // Ajax编辑角色
+    async editRoles() {
+      try {
+        this.fullscreenLoading = true
+        await editRoles(this.formData)
+        await this.getRolesArr()
+        this.$message({
+          message: '角色编辑成功',
+          type: 'success',
+          center: true
+        })
+      } catch (err) {
+        throw err
+      } finally {
+        console.log(111111)
+        this.fullscreenLoading = false
+      }
+    },
+
     // 格式化路由数组结构，处理只有一个children和hidden的情景
     formatRoutes(routesArr) {
       return routesArr
@@ -130,21 +198,15 @@ export default {
         })
     },
 
-    // Ajax获取角色权限信息
-    async getRolesArr() {
-      this.rolesTabDataLoading = true
-      this.rolesTabData = (await getRoles()).data.allRoles
-      this.rolesTabDataLoading = false
-    },
-
     // 角色Admin不可编辑
     isAdmin(row) {
-      return row.key === 'admin'
+      return row.name === 'admin'
     },
 
     // 编辑角色权限
-    editRoles(index, row) {
-      this.formData = row
+    handleEditRoles(index, row) {
+      this.submitType = 1
+      this.formData = Object.assign({ id: row._id }, row)
       this.$nextTick(() => {
         this.$refs.rolesForm.clearValidate()
         this.$refs.tree.setCheckedKeys(row.pages)
@@ -154,19 +216,14 @@ export default {
     },
 
     // 删除角色
-    async deleteRoles(index) {
+    async handleDeleteRoles(index, row) {
       try {
         await this.$confirm('此操作将永久删除相关数据, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         })
-
-        this.rolesTabDataLoading = true
-        setTimeout(() => {
-          this.rolesTabData.splice(index, 1)
-          this.rolesTabDataLoading = false
-        }, 3000)
+        this.delRoles(index, row)
       } catch (err) {
         throw err
       }
@@ -174,6 +231,7 @@ export default {
 
     // 添加角色
     handleAddRoles() {
+      this.submitType = 0
       this.formData = {}
       this.$nextTick(() => {
         this.$refs.tree.setCheckedKeys([])
@@ -192,8 +250,18 @@ export default {
     },
 
     // 权限确认
-    handleSubmit() {
+    async handleSubmit() {
       this.formData.pages = this.handleGetNodes()
+      switch (this.submitType) {
+        case 0:
+          await this.createRoles()
+          break
+        case 1:
+          await this.editRoles()
+          break
+        default:
+          break
+      }
       this.dialogVisible = false
     }
   }

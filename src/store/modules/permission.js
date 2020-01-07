@@ -30,13 +30,13 @@ const mutations = {
 }
 
 const actions = {
-  getAsyncRoutes({ commit, rootGetters }, roles) {
+  getAsyncRoutes({ commit }, roleinfo) {
     return new Promise(resolve => {
       let routes = []
-      if (rootGetters.userName === 'admin') {
+      if (roleinfo.name === 'admin') {
         routes = asyncRoutes || ''
       } else {
-        routes = forSearchArr(asyncRoutes, roles)
+        routes = forSearchArr(asyncRoutes, roleinfo.pages)
       }
       commit('SET_ROUTES', routes)
       resolve(routes)

@@ -4,11 +4,11 @@
       <div class="wrap-form">
         <div class="form-title">后台管理系统</div>
         <el-form ref="loginForm" :model="ruleForm" :rules="rules">
-          <el-form-item prop="user">
+          <el-form-item prop="username">
             <el-input
-              v-model="ruleForm.user"
+              v-model="ruleForm.username"
               placeholder="请输入账号"
-              prefix-icon="el-icon-user"
+              prefix-icon="el-icon-username"
             ></el-input>
           </el-form-item>
           <el-form-item prop="password">
@@ -34,18 +34,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   data() {
     return {
       fullscreenLoading: false,
       loadingColor: '#000',
       ruleForm: {
-        user: 'admin',
-        password: '123456'
+        username: 'admin',
+        password: 'admin'
       },
       rules: {
-        user: [
+        username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 3, max: 15, message: '长度在3到5个字符', trigger: 'blur' }
         ],
@@ -59,6 +58,7 @@ export default {
       try {
         this.fullscreenLoading = true
         await this.$store.dispatch('user/_login', this.ruleForm)
+        // await this.$store.dispatch('user/getUserRoles')
         this.fullscreenLoading = false
         this.$message({
           message: '用户登陆成功',
@@ -73,13 +73,6 @@ export default {
         throw err
       }
     }
-  },
-
-  computed: {
-    ...mapState('permission', {
-      routes: state => state.routes,
-      addRoutes: state => state.addRoutes
-    })
   }
 }
 </script>

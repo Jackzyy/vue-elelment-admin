@@ -2,7 +2,7 @@
   <div id="domPersonal" class="user-dropdown">
     <el-dropdown placement="bottom-start">
       <span class="el-dropdown-link">
-        admin
+        {{ userinfo.user }}
         <i class="el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -32,7 +32,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  computed: {
+    ...mapGetters(['userinfo'])
+  },
+
   methods: {
     handleLoginOut() {
       this.$store.dispatch('user/loginOut')

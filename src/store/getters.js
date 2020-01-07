@@ -1,8 +1,8 @@
 // Store State 统一出口
 const getters = {
-  userName: state => state.user.userName,
+  userinfo: state => state.user.userinfo,
   token: state => state.user.token,
-  roles: state => state.user.roles,
+  rolePages: state => state.user.roleinfo.pages,
   routes: state => state.permission.routes,
   addRoutes: state => state.permission.addRoutes,
   opened: state => state.app.opened,
